@@ -10,11 +10,6 @@
 
 void initAllStatics(float a);
 
-std::ostream & operator << (std::ostream & stream, const DL::Vec2 & a) {
-	stream << a.x << ' ' << a.y << std::endl;
-	return stream;
-}
-
 inline void processEvents(sf::RenderWindow & w)
 {
 	sf::Event event;
@@ -28,6 +23,7 @@ inline void processEvents(sf::RenderWindow & w)
 
 const int c_framesPerSecond = 60;
 const float c_MillisecondsForOneFrame = 1'000 / c_framesPerSecond;
+float _ = 5;
 
 int main()
 {
@@ -50,9 +46,8 @@ int main()
 		clock.restart();
 
 		processEvents(main_window);
-
-		player.update();
-		DL::Bullet::updateList(DL::Bullet::bullet_list);
+		player.update(c_MillisecondsForOneFrame);
+		DL::Bullet::updateList(DL::Bullet::bullet_list, c_MillisecondsForOneFrame);
 		camera.follow(player);
 
 		camera.clear();

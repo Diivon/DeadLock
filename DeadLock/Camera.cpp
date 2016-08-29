@@ -28,7 +28,7 @@ void DL::Camera::render(const DL::Ship & a) const {
 	_window->draw(shape);
 }
 void DL::Camera::render(const DL::Bullet & a) const {
-	sf::CircleShape circle(1);
+	sf::CircleShape circle(5);
 	circle.setPosition(a._pos.minus(_pos));
 	circle.setFillColor(sf::Color::Black);
 	_window->draw(circle);
