@@ -9,8 +9,8 @@ static void print_Vec2(const DL::Vec2 & a)
 DL::Camera::Camera(const Vec2 & pos, sf::RenderWindow & wind) :
 	_pos(pos), _window(&wind) {
 	auto size = _window->getSize();
-	_half_height = size.x / 2;
-	_half_width = size.y / 2;
+	_half_height = size.y / 2;
+	_half_width = size.x / 2;
 	_pos -= DL::Vec2(_half_width, _half_height);
 }
 DL::Camera::~Camera() {
@@ -45,9 +45,6 @@ void DL::Camera::show() const {
 	_window->display();
 }
 void DL::Camera::follow(const DL::Ship & a) {
-
-	auto diff = a._pos.minus(_pos).minus(DL::Vec2(_half_height, _half_width));
-	auto len = diff.getLength();
-	//diff.length = ...
-	_pos += diff;
+	_pos.x += (a._pos.x - _pos.x - _half_width) * Camera::follow_speed;
+	_pos.y += (a._pos.y - _pos.y - _half_height) * Camera::follow_speed;
 }

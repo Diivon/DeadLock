@@ -13,3 +13,7 @@ void DL::Bullet::update()
 	_pos.x += _look.x * move_speed;
 	_pos.y += _look.y * move_speed;
 }
+void DL::Bullet::searchCollides(const std::list<DL::Ship> & list) {
+	//static_assert(false, "todo!");
+
+}

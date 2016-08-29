@@ -10,6 +10,8 @@ std::list<DL::Ship> DL::Ship::ship_list;
 float DL::Bullet::move_speed;
 std::list<DL::Bullet> DL::Bullet::bullet_list;
 
+float DL::Camera::follow_speed;
+
 void initAllStatics(float milliseconds_per_frame)
 {
 	DL::Ship::move_speed = 100.0f / milliseconds_per_frame;
@@ -19,4 +21,5 @@ void initAllStatics(float milliseconds_per_frame)
 	DL::Bullet::move_speed = 100.0f / milliseconds_per_frame;
 	DL::Bullet::bullet_list = std::list<DL::Bullet>();
 
+	DL::Camera::follow_speed = 0.02f;
 }

@@ -35,7 +35,7 @@ int main()
 
 	sf::ContextSettings camera_settings;
 	camera_settings.antialiasingLevel = 0;
-	sf::RenderWindow main_window(sf::VideoMode(800, 600), "DeadLock", sf::Style::Close, camera_settings);
+	sf::RenderWindow main_window(sf::VideoMode(800,600), "DeadLock", sf::Style::Close, camera_settings);
 
 	auto camera = DL::Camera(DL::Vec2(100, 100), main_window);
 
@@ -60,9 +60,8 @@ int main()
 		camera.renderList(DL::Bullet::bullet_list);
 		camera.show();
 
-		float time = clock.getElapsedTime().asMilliseconds();//(c_MillisecondsForOneFrame - time)
+		float time = clock.getElapsedTime().asMilliseconds();
 		if (time < c_MillisecondsForOneFrame) sf::sleep(sf::milliseconds(c_MillisecondsForOneFrame - time));
 	}
-
 	return 0;
 }

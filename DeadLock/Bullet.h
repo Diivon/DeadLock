@@ -25,5 +25,6 @@ namespace DL
 
 		Bullet(Ship * owner, const Vec2 & position, const Vec2 & direction);
 		void update();
+		void searchCollides(const std::list<Ship> &);
 	};
 }

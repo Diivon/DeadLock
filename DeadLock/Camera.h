@@ -13,7 +13,7 @@ namespace DL
 		unsigned int _half_height;
 		unsigned int _half_width;
 	public:
-		//static float move_speed;
+		static float follow_speed;
 
 		Camera(const Vec2 & pos, sf::RenderWindow & wind);
 		~Camera();
