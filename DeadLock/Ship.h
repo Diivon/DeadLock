@@ -2,23 +2,23 @@
 #include "Vec2.h"
 #include "SFML/Graphics.hpp"
 #include <list>
-#include "Bullet.h"
-#include "Cannon.h"
 #include <array>
+#include "Bullet.h"
 
 namespace DL
 {
 	class Ship
 	{
 		friend class Camera;
-		Vec2 _look;
-		Vec2 _pos;
-		sf::ConvexShape _points;
+		Vec2 _look;//move direction
+		Vec2 _pos;//position in world
+		float _ang;//angle, on which ship is rotated
+		sf::ConvexShape _points;//coords about _pos
 		struct ShipSide {
 			float shoot_cooldown;//in ms, when it > shoot_cooldown ready to fire
 			float HP;//health points
-			std::array<Cannon, 5> _cannons;
-		} _left_side, _right_side;
+			std::array<Vec2, 5> _cannon_pos;//Cannon positions about _pos
+		} _left_side, _right_side;//:))
 
 		Ship() = delete;
 		Ship(const Ship &) = delete;
@@ -26,10 +26,10 @@ namespace DL
 		void operator = (Ship &&) = delete;
 		void operator = (const Ship &) = delete;
 	public:
-		static float move_speed;
-		static float rotate_speed;
-		static std::list<Ship> ship_list;
-		static float shoot_cooldown;
+		static float move_speed;//in px / ms
+		static float rotate_speed;//in degree / ms
+		static std::list<Ship> ship_list;//list(owner) for renderer, every ship must be in it
+		static float shoot_cooldown;//in ms
 
 		Ship(const Vec2 & pos, const Vec2 & look);
 		~Ship();

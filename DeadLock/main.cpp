@@ -8,7 +8,7 @@
 #include <iostream>
 #include <list>
 
-void initAllStatics(float a);
+void initAllStatics();
 
 inline void processEvents(sf::RenderWindow & w)
 {
@@ -23,11 +23,10 @@ inline void processEvents(sf::RenderWindow & w)
 
 const int c_framesPerSecond = 60;
 const float c_MillisecondsForOneFrame = 1'000 / c_framesPerSecond;
-float _ = 5;
 
 int main()
 {
-	initAllStatics(c_MillisecondsForOneFrame);
+	initAllStatics();
 
 	sf::ContextSettings camera_settings;
 	camera_settings.antialiasingLevel = 0;
@@ -35,8 +34,8 @@ int main()
 
 	auto camera = DL::Camera(DL::Vec2(100, 100), main_window);
 
-	DL::Ship::ship_list.emplace_back(DL::Vec2(50, 50), DL::Vec2(0, 1));
-	DL::Ship::ship_list.emplace_back(DL::Vec2(200, 200), DL::Vec2(0, 1));
+	DL::Ship::ship_list.emplace_back(DL::Vec2(0, 0), DL::Vec2(0, 1));
+	DL::Ship::ship_list.emplace_back(DL::Vec2(120, 120), DL::Vec2(0, 1));
 
 	DL::Ship & player = DL::Ship::ship_list.front();
 
@@ -55,8 +54,8 @@ int main()
 		camera.renderList(DL::Bullet::bullet_list);
 		camera.show();
 
-		float time = clock.getElapsedTime().asMilliseconds();
-		if (time < c_MillisecondsForOneFrame) sf::sleep(sf::milliseconds(c_MillisecondsForOneFrame - time));
+		auto time = clock.getElapsedTime().asMilliseconds();
+		if (time < c_MillisecondsForOneFrame) sf::sleep(sf::milliseconds(static_cast<sf::Int32>(c_MillisecondsForOneFrame - time)));
 	}
 	return 0;
 }

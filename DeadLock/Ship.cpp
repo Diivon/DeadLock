@@ -1,7 +1,8 @@
 #include "Ship.h"
+#include <iostream>
 
 DL::Ship::Ship(const Vec2 & pos, const Vec2 & look) :
-	_look(look), _pos(pos), _points(6)
+	_look(look), _pos(pos), _points(6), _ang(0)
 {
 	_points.setPoint(0, Vec2(0, 10));
 	_points.setPoint(1, Vec2(5, -10));
@@ -12,12 +13,24 @@ DL::Ship::Ship(const Vec2 & pos, const Vec2 & look) :
 	_points.setOutlineColor(sf::Color::Black);
 	_points.setOutlineThickness(1);
 	_points.setFillColor(sf::Color(139, 69, 19));
+
+	DL::Vec2 nullVec(0, 0);
 	
 	_left_side.HP = 100;
-	_left_side.shoot_cooldown = 0;
+	_left_side.shoot_cooldown = Ship::shoot_cooldown;
+	_left_side._cannon_pos[0] = DL::Vec2(2, 2);
+	_left_side._cannon_pos[1] = DL::Vec2(3, -2);
+	_left_side._cannon_pos[2] = DL::Vec2(4, -6);;
+	_left_side._cannon_pos[3] = DL::Vec2(5, -10);
+	_left_side._cannon_pos[4] = DL::Vec2(4.5, -15);
 
 	_right_side.HP = 100;
-	_right_side.shoot_cooldown = 0;
+	_right_side.shoot_cooldown = Ship::shoot_cooldown;
+	_right_side._cannon_pos[0] = DL::Vec2(-2, 2);
+	_right_side._cannon_pos[1] = DL::Vec2(-3, -2);
+	_right_side._cannon_pos[2] = DL::Vec2(-4, -6);
+	_right_side._cannon_pos[3] = DL::Vec2(-5, -10);
+	_right_side._cannon_pos[4] = DL::Vec2(-4.5, -15);
 }
 DL::Ship::~Ship() {}
 void DL::Ship::moveOn(const Vec2 & a) {
@@ -27,41 +40,52 @@ void DL::Ship::moveTo(const Vec2 & a) {
 	_pos = a;
 }
 void DL::Ship::rotate(float angle) {
+	float _angle = angle / 180 * Pi;
+	float coss = cos(_angle);
+	float sinn = sin(_angle);
 	_points.rotate(angle);
-	_look.rotate(angle);
+	_look.rotate(coss, sinn);
+	for (auto & i : _left_side._cannon_pos)
+		i.rotate(coss, sinn);
+	for (auto & i : _right_side._cannon_pos)
+		i.rotate(coss, sinn);
 }
 void DL::Ship::update(const float & dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		this->moveOn(_look * move_speed);
+		this->moveOn(_look.operator*(move_speed * dt));
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			this->rotate(-rotate_speed);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			this->rotate(rotate_speed);
 	}
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-		this->shootLeft();
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
-		this->shootRight();
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+		if (_left_side.shoot_cooldown >= Ship::shoot_cooldown)
+			this->shootLeft();
+	}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
+		if (_right_side.shoot_cooldown >= Ship::shoot_cooldown)
+			this->shootRight();
+	}
 
 	_left_side.shoot_cooldown += dt;
 	_right_side.shoot_cooldown += dt;
 }
 void DL::Ship::shootLeft()
 {
-	if (_left_side.shoot_cooldown >= Ship::shoot_cooldown) {
-		DL::Vec2 dir(_look.y, -_look.x);
-		for (auto i = _left_side._cannons.cbegin(); i != _left_side._cannons.cend(); ++i)
-			i->shoot(_pos, dir);
-		_left_side.shoot_cooldown = 0;
+	DL::Vec2 dir(_look.y, -_look.x);
+	for (auto i = _left_side._cannon_pos.cbegin(); i != _left_side._cannon_pos.cend(); ++i) {
+		auto it = Bullet::bullet_list.emplace(Bullet::bullet_list.cend(), this, i->plus(_pos), dir);
+		it->_it = it;
 	}
+	_left_side.shoot_cooldown = 0;
 }
 void DL::Ship::shootRight()
 {
-	if (_right_side.shoot_cooldown >= Ship::shoot_cooldown) {
-		DL::Vec2 dir(-_look.y, _look.x);
-		for (auto i = _right_side._cannons.cbegin(); i != _right_side._cannons.cend(); ++i)
-			i->shoot(_pos, dir);
-		_right_side.shoot_cooldown = 0;
+	DL::Vec2 dir(-_look.y, _look.x);
+	for (auto i = _right_side._cannon_pos.cbegin(); i != _right_side._cannon_pos.cend(); ++i) {
+		auto it = Bullet::bullet_list.emplace(Bullet::bullet_list.cend(), this, i->plus(_pos), dir);
+		it->_it = it;
 	}
+	_right_side.shoot_cooldown = 0;
 }

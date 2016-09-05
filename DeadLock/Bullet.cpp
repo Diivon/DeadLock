@@ -11,14 +11,11 @@ DL::Bullet::Bullet(DL::Ship * owner, const Vec2 & position, const Vec2 & directi
 {}
 void DL::Bullet::update(const float & dt)
 {
-	_pos.x += _look.x * move_speed;
-	_pos.y += _look.y * move_speed;
+	_pos.x += _look.x * move_speed * dt;
+	_pos.y += _look.y * move_speed * dt;
 	_lifetime += dt;
 	if (_lifetime >= Bullet::lifetime)
 		this->destroySelf();
-}
-void DL::Bullet::searchCollides(const std::list<DL::Ship> & list) {
-	//static_assert(false, "todo!");
 }
 void DL::Bullet::destroySelf() {
 	DL::Bullet::bullet_list.erase(_it);

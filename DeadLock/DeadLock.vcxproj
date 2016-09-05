@@ -135,7 +135,6 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Cannon.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Ship.h" />
     <ClInclude Include="Vec2.h" />

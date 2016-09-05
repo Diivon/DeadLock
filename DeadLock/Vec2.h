@@ -5,7 +5,7 @@
 namespace DL
 {
 	const float Pi = 3.1415927f;
-	enum Direction
+	enum class Direction
 	{
 		Ahead,
 		Back,

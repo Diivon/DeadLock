@@ -11,7 +11,7 @@ DL::Camera::Camera(const Vec2 & pos, sf::RenderWindow & wind) :
 	auto size = _window->getSize();
 	_half_height = size.y / 2;
 	_half_width = size.x / 2;
-	_pos -= DL::Vec2(_half_width, _half_height);
+	_pos -= DL::Vec2(static_cast<float>(_half_width), static_cast<float>(_half_height));
 }
 DL::Camera::~Camera() {
 }
@@ -28,7 +28,7 @@ void DL::Camera::render(const DL::Ship & a) const {
 	_window->draw(shape);
 }
 void DL::Camera::render(const DL::Bullet & a) const {
-	sf::CircleShape circle(5);
+	sf::CircleShape circle(2);
 	circle.setPosition(a._pos.minus(_pos));
 	circle.setFillColor(sf::Color::Black);
 	_window->draw(circle);
