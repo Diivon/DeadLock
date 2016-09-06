@@ -1,4 +1,4 @@
-#include "Bullet.h"
+#include "DL/Bullet.h"
 #include <iostream>
 
 void DL::Bullet::updateList(std::list<DL::Bullet> & a, const float & dt) {

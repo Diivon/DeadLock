@@ -30,21 +30,27 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vec2.h">
+    <ClInclude Include="DL\Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
+    <ClInclude Include="DL\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ship.h">
+    <ClInclude Include="DL\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="DL\Ship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="DL\Vec2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DL\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

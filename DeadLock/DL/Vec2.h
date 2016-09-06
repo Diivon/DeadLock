@@ -42,7 +42,7 @@ namespace DL
 		const Vec2 & operator *= (float a) { x *= a; y *= a; return *this; }
 		const Vec2 & operator /= (float a) { x /= a; y /= a; return *this; }
 
-		const Vec2 & rotate(float angle) {
+		const Vec2 & rotateDeg(float angle) {
 			angle = angle / 180 * Pi;
 			float coss = std::cos(angle);
 			float sinn = std::sin(angle);
@@ -51,20 +51,33 @@ namespace DL
 			x = newX;
 			return *this;
 		}
-		const Vec2 & rotate(float coss, float sinn) {
+		const Vec2 & rotateRad(float radian) {
+			float coss = std::cos(radian);
+			float sinn = std::sin(radian);
+			float newX = x * coss - y * sinn;		//x*coss - y*sinn
+			y = x * sinn + y * coss;		//x*sinn + y*coss
+			x = newX;
+			return *this;
+		}
+		const Vec2 & rotateCS(float coss, float sinn) {
 			float newX = x * coss - y * sinn;		//x*coss - y*sinn
 			y = x * sinn + y * coss;		//x*sinn + y*coss
 			x = newX;
 			return *this;
 		}
 
-		const Vec2 getRotated(float angle) const {
+		const Vec2 getRotatedDeg(float angle) const {
 			angle = angle / 180 * Pi;
 			float coss = std::cos(angle);
 			float sinn = std::sin(angle);
 			return Vec2(x * coss - y * sinn, x * sinn + y * coss);
 		}
-		const Vec2 getRotated(float coss, float sinn) const {
+		const Vec2 getRotatedRad(float angle) const {
+			float coss = std::cos(angle);
+			float sinn = std::sin(angle);
+			return Vec2(x * coss - y * sinn, x * sinn + y * coss);
+		}
+		const Vec2 getRotatedCS(float coss, float sinn) const {
 			return Vec2(x * coss - y * sinn, x * sinn + y * coss);
 		}
 

@@ -1,9 +1,9 @@
 #pragma once
-#include "Vec2.h"
+#include "DL/Vec2.h"
 #include "SFML/Graphics.hpp"
 #include <list>
 #include <array>
-#include "Bullet.h"
+#include "DL/Bullet.h"
 
 namespace DL
 {
@@ -28,8 +28,9 @@ namespace DL
 	public:
 		static float move_speed;//in px / ms
 		static float rotate_speed;//in degree / ms
-		static std::list<Ship> ship_list;//list(owner) for renderer, every ship must be in it
 		static float shoot_cooldown;//in ms
+		static float shoot_dispersion;//is degree
+		static std::list<Ship> ship_list;//list(owner) for renderer, every ship must be in it
 
 		Ship(const Vec2 & pos, const Vec2 & look);
 		~Ship();

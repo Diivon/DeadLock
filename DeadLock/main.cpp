@@ -1,10 +1,11 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System/Sleep.hpp"
 #include "SFML/System/Time.hpp"
-#include "Vec2.h"
-#include "Ship.h"
-#include "Bullet.h"
-#include "Camera.h"
+#include "DL/Vec2.h"
+#include "DL/Ship.h"
+#include "DL/Bullet.h"
+#include "DL/Camera.h"
+#include "DL/Random.h"
 #include <iostream>
 #include <list>
 
@@ -53,6 +54,8 @@ int main()
 		camera.renderList(DL::Ship::ship_list);
 		camera.renderList(DL::Bullet::bullet_list);
 		camera.show();
+
+		//std::cout << DL::getRandom<float>(0.0, 10.0) << std::endl;
 
 		auto time = clock.getElapsedTime().asMilliseconds();
 		if (time < c_MillisecondsForOneFrame) sf::sleep(sf::milliseconds(static_cast<sf::Int32>(c_MillisecondsForOneFrame - time)));

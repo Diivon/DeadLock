@@ -1,4 +1,5 @@
-#include "Ship.h"
+#include "DL/Ship.h"
+#include "DL/Random.h"
 #include <iostream>
 
 DL::Ship::Ship(const Vec2 & pos, const Vec2 & look) :
@@ -44,11 +45,11 @@ void DL::Ship::rotate(float angle) {
 	float coss = cos(_angle);
 	float sinn = sin(_angle);
 	_points.rotate(angle);
-	_look.rotate(coss, sinn);
+	_look.rotateCS(coss, sinn);
 	for (auto & i : _left_side._cannon_pos)
-		i.rotate(coss, sinn);
+		i.rotateCS(coss, sinn);
 	for (auto & i : _right_side._cannon_pos)
-		i.rotate(coss, sinn);
+		i.rotateCS(coss, sinn);
 }
 void DL::Ship::update(const float & dt)
 {
@@ -75,7 +76,10 @@ void DL::Ship::shootLeft()
 {
 	DL::Vec2 dir(_look.y, -_look.x);
 	for (auto i = _left_side._cannon_pos.cbegin(); i != _left_side._cannon_pos.cend(); ++i) {
-		auto it = Bullet::bullet_list.emplace(Bullet::bullet_list.cend(), this, i->plus(_pos), dir);
+		auto deg = DL::getRandom<float>(-shoot_dispersion, shoot_dispersion);
+		auto bullDir = dir.getRotatedDeg(deg);
+
+		auto it = Bullet::bullet_list.emplace(Bullet::bullet_list.cend(), this, i->plus(_pos), bullDir);
 		it->_it = it;
 	}
 	_left_side.shoot_cooldown = 0;
@@ -84,7 +88,10 @@ void DL::Ship::shootRight()
 {
 	DL::Vec2 dir(-_look.y, _look.x);
 	for (auto i = _right_side._cannon_pos.cbegin(); i != _right_side._cannon_pos.cend(); ++i) {
-		auto it = Bullet::bullet_list.emplace(Bullet::bullet_list.cend(), this, i->plus(_pos), dir);
+		auto deg = DL::getRandom<float>(-shoot_dispersion, shoot_dispersion);
+		auto bullDir = dir.getRotatedDeg(deg);
+
+		auto it = Bullet::bullet_list.emplace(Bullet::bullet_list.cend(), this, i->plus(_pos), bullDir);
 		it->_it = it;
 	}
 	_right_side.shoot_cooldown = 0;

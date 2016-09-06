@@ -129,15 +129,17 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="static_fields.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Ship.h" />
-    <ClInclude Include="Vec2.h" />
+    <ClInclude Include="DL\Bullet.h" />
+    <ClInclude Include="DL\Camera.h" />
+    <ClInclude Include="DL\Random.h" />
+    <ClInclude Include="DL\resource.h" />
+    <ClInclude Include="DL\Ship.h" />
+    <ClInclude Include="DL\Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

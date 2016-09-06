@@ -1,8 +1,8 @@
 #pragma once
 #include <list>
 #include "SFML/Graphics.hpp"
-#include "Vec2.h"
-#include "Ship.h"
+#include "DL/Vec2.h"
+#include "DL/Ship.h"
 
 namespace DL
 {
