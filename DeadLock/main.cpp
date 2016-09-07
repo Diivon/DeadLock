@@ -55,8 +55,7 @@ int main()
 		camera.renderList(DL::Bullet::bullet_list);
 		camera.show();
 
-		//std::cout << DL::getRandom<float>(0.0, 10.0) << std::endl;
-
+		std::cout << DL::Random<float, DL::Distribution::Float>::get(5, 10) << std::endl;
 		auto time = clock.getElapsedTime().asMilliseconds();
 		if (time < c_MillisecondsForOneFrame) sf::sleep(sf::milliseconds(static_cast<sf::Int32>(c_MillisecondsForOneFrame - time)));
 	}

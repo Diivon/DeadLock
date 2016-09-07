@@ -76,7 +76,7 @@ void DL::Ship::shootLeft()
 {
 	DL::Vec2 dir(_look.y, -_look.x);
 	for (auto i = _left_side._cannon_pos.cbegin(); i != _left_side._cannon_pos.cend(); ++i) {
-		auto deg = DL::getRandom<float>(-shoot_dispersion, shoot_dispersion);
+		auto deg = DL::Random<float>::get(-shoot_dispersion, shoot_dispersion);
 		auto bullDir = dir.getRotatedDeg(deg);
 
 		auto it = Bullet::bullet_list.emplace(Bullet::bullet_list.cend(), this, i->plus(_pos), bullDir);
@@ -88,7 +88,7 @@ void DL::Ship::shootRight()
 {
 	DL::Vec2 dir(-_look.y, _look.x);
 	for (auto i = _right_side._cannon_pos.cbegin(); i != _right_side._cannon_pos.cend(); ++i) {
-		auto deg = DL::getRandom<float>(-shoot_dispersion, shoot_dispersion);
+		auto deg = DL::Random<float>::get(-shoot_dispersion, shoot_dispersion);
 		auto bullDir = dir.getRotatedDeg(deg);
 
 		auto it = Bullet::bullet_list.emplace(Bullet::bullet_list.cend(), this, i->plus(_pos), bullDir);
